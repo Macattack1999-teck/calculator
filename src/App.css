@@ -30,6 +30,22 @@
   z-index: 0;
 }
 
+.plus {
+  background: #4d4c4c;
+}
+
+.dash {
+  background: #4d4c4c;
+}
+
+.times {
+  background: #4d4c4c;
+}
+
+.slash {
+  background: #4d4c4c;
+}
+
 .equals {
   background: #2196f3;
   z-index: 0;
