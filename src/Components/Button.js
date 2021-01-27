@@ -20,8 +20,12 @@ export default (props) => {
      : props.button === "x" ? "times"
      : props.button
 
+     const handleAddingToOperation = () => {
+      console.log(props.button)
+     }
+
   return (
-    <div className={`button ${buttonName}`} style={{ gridArea: buttonName }}>
+    <div onClick={handleAddingToOperation} className={`button ${buttonName}`} style={{ gridArea: buttonName }}>
       {props.button}
     </div>
   )
