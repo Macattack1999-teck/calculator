@@ -26,6 +26,48 @@ export default (props) => {
     : props.button === "0" ? "zero"
     : props.button === "x" ? "times"
     : props.button
+
+    const handleAddingToOperation = (splitOperation) => {
+      // check to see if input is a decimal point
+      if (props.button === ".") {
+        // check to see if there is a value in the operation
+        if (splitOperation.length === 1 && splitOperation[0].length === 0) {
+          setOperation(".")
+          return;
+        } else {
+          // check to see if a decimal point already exists in the last element of splitOperation
+          if (splitOperation[splitOperation.length - 1].includes(".")) {
+            return;
+          } else {
+            // if it doesn't allow a decimal point to be added to the operation
+            setOperation(operation + ".")
+          }
+        }
+      }
+
+      // check to see if input is a javascript operator
+      if (props.button === "+" || props.button === "-" || props.button === "x" || props.button === '/') {
+        // check to see if input operator isn't already the last operator attached to operation
+        // TODO REFACTOR CONDITIONAL REVERSE
+        if (props.button === operation[operation.length - 1]) {
+          return
+          // check to see if passed input operator is different than current operations last operator if it is different change it to new operator
+        } else if (operation[operation.length - 1] === "+" || operation[operation.length - 1] === "-" || operation[operation.length - 1] === "x" || operation[operation.length - 1] === "/") {
+          const slicedOperation = operation.slice(0, -1)
+          const operator = props.button === "x" ? "*" : props.button
+          const completeOperation = slicedOperation + operator
+          return setOperation(completeOperation)
+        }
+      }
+
+      // change input x into javascript multiplier (ex: x => *)
+      if (props.button === "x") {
+        setOperation(operation + "*")
+      } else {
+        // add input to operation
+        setOperation(operation + props.button)
+      }
+    }
     
     const handleSummingOperation = (operationValid, splitOperation) => {
       // base cases
@@ -53,7 +95,7 @@ export default (props) => {
       }
     }
 
-    const handleAddingToOperation = () => {
+    const handleInputClick = () => {
       // split current operation by operators
       const splitOperation = operation.split("+").join(",").split("-").join(",").split("/").join("/").split("*").join(",").split(",")
 
@@ -63,50 +105,12 @@ export default (props) => {
       } else if (props.button === "=") {
         handleSummingOperation(null, splitOperation)
       } else {
-        // check to see if input is a decimal point
-        if (props.button === ".") {
-          // check to see if there is a value in the operation
-          if (splitOperation.length === 1 && splitOperation[0].length === 0) {
-            setOperation(".")
-            return;
-          } else {
-            // check to see if a decimal point already exists in the last element of splitOperation
-            if (splitOperation[splitOperation.length - 1].includes(".")) {
-              return;
-            } else {
-              // if it doesn't allow a decimal point to be added to the operation
-              setOperation(operation + ".")
-            }
-          }
-        }
-
-        // check to see if input is a javascript operator
-        if (props.button === "+" || props.button === "-" || props.button === "x" || props.button === '/') {
-          // check to see if input operator isn't already the last operator attached to operation
-          // TODO REFACTOR CONDITIONAL REVERSE
-          if (props.button === operation[operation.length - 1]) {
-            return
-            // check to see if passed input operator is different than current operations last operator if it is different change it to new operator
-          } else if (operation[operation.length - 1] === "+" || operation[operation.length - 1] === "-" || operation[operation.length - 1] === "x" || operation[operation.length - 1] === "/") {
-            const slicedOperation = operation.slice(0, -1)
-            const operator = props.button === "x" ? "*" : props.button
-            const completeOperation = slicedOperation + operator
-            return setOperation(completeOperation)
-          }
-        }
-
-        // change input x into javascript multiplier (ex: x => *)
-        if (props.button === "x") {
-          setOperation(operation + "*")
-        } else {
-          // add input to operation
-          setOperation(operation + props.button)
-        }
+        handleAddingToOperation(splitOperation)
       }
     }
 
   return (
-    <div onClick={handleAddingToOperation} className={`button ${buttonName}`} style={{ gridArea: buttonName }}>
+    <div onClick={handleInputClick} className={`button ${buttonName}`} style={{ gridArea: buttonName }}>
       {props.button}
     </div>
   )
