@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import OperationContext from '../Contexts/OperationContext';
+/* eslint no-eval: 0 */
 
 const Button = (props) => {
   const {
