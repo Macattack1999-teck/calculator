@@ -4,7 +4,8 @@ import OperationContext from '../Contexts/OperationContext';
 export default (props) => {
   const {
     setOperation,
-    operation
+    operation,
+    setSum
   } = useContext(OperationContext);
 
   const buttonName = props.button === "/" ? "slash"
@@ -25,22 +26,45 @@ export default (props) => {
     : props.button === "0" ? "zero"
     : props.button === "x" ? "times"
     : props.button
+    
+    const handleSummingOperation = (operationValid, splitOperation) => {
+      // base cases
+      if (operationValid === false) {
+        return;
+      } else if (operationValid === true) {
+        return setSum(eval(operation))
+      }
+
+      // make sure there is a full operation (ex: 6 + 6)
+      if (splitOperation.length > 1) {
+        // create a loop to get values between operators (ex: "23", "12", "9")
+        for (let i = 0; i < splitOperation.length; i++) {
+          // check if there is an empty value after an operator (ex: "23", "")
+          if (splitOperation[i].length === 0) {
+            handleSummingOperation(false, splitOperation)
+            // check if theres a value after an operator and that the index matches splitOperation array length
+          } else if (splitOperation[i].length > 0 && (i + 1) === splitOperation.length) {
+            handleSummingOperation(true, splitOperation)
+          }
+        }
+      } else {
+        // there is not a full operation (ex: 6 +)
+        handleSummingOperation(false, splitOperation)
+      }
+    }
 
     const handleAddingToOperation = () => {
+      // split current operation by operators
+      const splitOperation = operation.split("+").join(",").split("-").join(",").split("/").join("/").split("*").join(",").split(",")
+
       // Clears the operation
       if (props.button === "ac") {
         setOperation("")
       } else if (props.button === "=") {
-        // make sure there is a full operation to be done
-        if (operation.length > 0) {
-          console.log(eval(operation))
-        }
+        handleSummingOperation(null, splitOperation)
       } else {
         // check to see if input is a decimal point
         if (props.button === ".") {
-          // split current operation by operators
-          const splitOperation = operation.split("+").join(",").split("-").join(",").split("/").join("/").split("*").join(",").split(",")
-          
           // check to see if there is a value in the operation
           if (splitOperation.length === 1 && splitOperation[0].length === 0) {
             setOperation(".")
@@ -71,7 +95,7 @@ export default (props) => {
           }
         }
 
-        // change input x into javascript multiplier *
+        // change input x into javascript multiplier (ex: x => *)
         if (props.button === "x") {
           setOperation(operation + "*")
         } else {

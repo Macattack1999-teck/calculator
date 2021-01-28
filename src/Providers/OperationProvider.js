@@ -3,10 +3,13 @@ import OperationContext from '../Contexts/OperationContext';
 
 const OperationProvider = (props) => {
   const [operation, setOperation] = useState("");
+  const [sum, setSum] = useState(null);
 
   const state = {
     operation,
-    setOperation
+    setOperation,
+    sum,
+    setSum
   }
 
   return (
