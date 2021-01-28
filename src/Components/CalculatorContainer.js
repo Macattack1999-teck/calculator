@@ -2,7 +2,7 @@ import React from 'react';
 import ButtonsContainer from './ButtonsContainer';
 import DisplayContainer from './Display/DisplayContainer';
 
-export default () => {
+const CalculatorContainer = () => {
   return (
     <div className="calculator-container" style={{
       background: "#1B1B1B",
@@ -18,3 +18,5 @@ export default () => {
     </div>
   )
 }
+
+export default CalculatorContainer;

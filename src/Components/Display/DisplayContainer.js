@@ -2,7 +2,7 @@ import React from 'react'
 import DisplayBottom from './DisplayBottom'
 import DisplayTop from './DisplayTop'
 
-export default () => {
+const DisplayContainer = () => {
   return (
     <div style={{
       width: "calc(100% - 40px)",
@@ -22,3 +22,5 @@ export default () => {
     </div>
   )
 }
+
+export default DisplayContainer;

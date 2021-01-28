@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import OperationContext from '../../Contexts/OperationContext';
 
-export default () => {
+const DisplayTop = () => {
   const {
     operation,
     sum
@@ -29,3 +29,5 @@ export default () => {
     </div>
   )
 }
+
+export default DisplayTop;

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import OperationContext from '../Contexts/OperationContext';
 
-export default (props) => {
+const Button = (props) => {
   const {
     setOperation,
     operation,
@@ -115,3 +115,5 @@ export default (props) => {
     </div>
   )
 }
+
+export default Button;

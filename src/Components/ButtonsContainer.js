@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-export default () => {
+const ButtonsContainer = () => {
   const operationButtons = [
     "ac",
     "/",
@@ -33,3 +33,5 @@ export default () => {
     </div>
   )
 }
+
+export default ButtonsContainer;
