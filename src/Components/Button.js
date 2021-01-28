@@ -38,7 +38,18 @@ export default (props) => {
       } else {
         // make sure there isn't mutliple decimal points on a number
         if (props.button === ".") {
-          console.log(props.button)
+          const splitOperation = operation.split("+").join(",").split("-").join(",").split("/").join("/").split("*").join(",").split(",")
+
+          if (splitOperation.length === 1 && splitOperation[0].length === 0) {
+            setOperation(".")
+            return;
+          } else {
+            if (splitOperation[splitOperation.length - 1].includes(".")) {
+              return;
+            } else {
+              setOperation(operation + ".")
+            }
+          }
         }
 
         // check to see if input is a javascript operator
