@@ -33,20 +33,24 @@ export default (props) => {
       } else if (props.button === "=") {
         // make sure there is a full operation to be done
         if (operation.length > 0) {
-          console.log(operation)
+          console.log(eval(operation))
         }
       } else {
-        // make sure there isn't mutliple decimal points on a number
+        // check to see if input is a decimal point
         if (props.button === ".") {
+          // split current operation by operators
           const splitOperation = operation.split("+").join(",").split("-").join(",").split("/").join("/").split("*").join(",").split(",")
-
+          
+          // check to see if there is a value in the operation
           if (splitOperation.length === 1 && splitOperation[0].length === 0) {
             setOperation(".")
             return;
           } else {
+            // check to see if a decimal point already exists in the last element of splitOperation
             if (splitOperation[splitOperation.length - 1].includes(".")) {
               return;
             } else {
+              // if it doesn't allow a decimal point to be added to the operation
               setOperation(operation + ".")
             }
           }
