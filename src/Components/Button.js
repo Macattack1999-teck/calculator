@@ -27,16 +27,27 @@ export default (props) => {
     : props.button
 
     const handleAddingToOperation = () => {
+      // Clears the operation
       if (props.button === "ac") {
         setOperation("")
       } else if (props.button === "=") {
+        // make sure there is a full operation to be done
         if (operation.length > 0) {
-          
+          console.log(operation)
         }
       } else {
+        // make sure there isn't mutliple decimal points on a number
+        if (props.button === ".") {
+          console.log(props.button)
+        }
+
+        // check to see if input is a javascript operator
         if (props.button === "+" || props.button === "-" || props.button === "x" || props.button === '/') {
+          // check to see if input operator isn't already the last operator attached to operation
+          // TODO REFACTOR CONDITIONAL REVERSE
           if (props.button === operation[operation.length - 1]) {
             return
+            // check to see if passed input operator is different than current operations last operator if it is different change it to new operator
           } else if (operation[operation.length - 1] === "+" || operation[operation.length - 1] === "-" || operation[operation.length - 1] === "x" || operation[operation.length - 1] === "/") {
             const slicedOperation = operation.slice(0, -1)
             const operator = props.button === "x" ? "*" : props.button
@@ -45,9 +56,11 @@ export default (props) => {
           }
         }
 
+        // change input x into javascript multiplier *
         if (props.button === "x") {
           setOperation(operation + "*")
         } else {
+          // add input to operation
           setOperation(operation + props.button)
         }
       }
