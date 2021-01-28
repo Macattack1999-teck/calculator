@@ -26,7 +26,7 @@ export default () => {
       {
         operationButtons.map((button) => {
           return (
-              <Button button={button} class={button} />
+              <Button key={button} button={button} class={button} />
           )
         })
       }
